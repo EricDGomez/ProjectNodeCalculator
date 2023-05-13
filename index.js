@@ -1,9 +1,5 @@
 var rs = require("readline-sync");
 
-var operation = rs.question("What operation would you like to perform?");
-var num1 = rs.questionInt("What will be the first number?");
-var num2 = rs.questionInt("What will be the second number?");
-
 // console.log(operation);
 // if (!operation == "+" || "-" || "*" || "/") {
 //   console.log("That is not a valid operation");
@@ -39,18 +35,21 @@ let calc = function (operation, num1, num2) {
 };
 
 while (true) {
-  if (operation === "+" || "-" || "*" || "/") {
+  var operation = rs.question("What operation would you like to perform?");
+  if (operation !== "+" && "-" && "*" && "/") {
+    console.log("That is not a valid operation");
+  } else {
+    var num1 = rs.questionInt("What will be the first number?");
     console.log(num1);
     if (isNaN(num1)) {
       console.log("This is not a number");
     }
+    var num2 = rs.questionInt("What will be the second number?");
     console.log(num2);
     if (isNaN(num2)) {
       console.log("This is not a number");
     }
     console.log("The result is: " + calc(operation, num1, num2));
     break;
-  } else {
-    console.log("That is not a valid operation");
   }
 }
