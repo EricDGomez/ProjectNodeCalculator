@@ -20,18 +20,20 @@ var rs = require("readline-sync");
 
 let calc = function (operation, num1, num2) {
   if (operation == "+") {
-    let result = num1 + num2;
-    return result;
+    return num1 + num2;
   } else if (operation == "-") {
-    let result = num1 - num2;
-    return result;
+    return num1 - num2;
   } else if (operation == "*") {
-    let result = num1 * num2;
-    return result;
+    return num1 * num2;
   } else if (operation == "/") {
-    let result = num1 / num2;
-    return result;
+    return num1 / num2;
   }
+};
+
+const getNum = (arg) => {
+  return rs.questionInt(`What will be the ${arg} number`, {
+    limitMessage: "This is not a valid number",
+  });
 };
 
 while (true) {
@@ -39,16 +41,7 @@ while (true) {
   if (operation !== "+" && "-" && "*" && "/") {
     console.log("That is not a valid operation");
   } else {
-    var num1 = rs.questionInt("What will be the first number?");
-    console.log(num1);
-    if (isNaN(num1)) {
-      console.log("This is not a number");
-    }
-    var num2 = rs.questionInt("What will be the second number?");
-    console.log(num2);
-    if (isNaN(num2)) {
-      console.log("This is not a number");
-    }
+    const [num1, num2] = ["first", "second"].map((item) => getNum(item));
     console.log("The result is: " + calc(operation, num1, num2));
     break;
   }
