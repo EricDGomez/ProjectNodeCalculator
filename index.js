@@ -19,15 +19,20 @@ var rs = require("readline-sync");
 // }
 
 let calc = function (operation, num1, num2) {
-  if (operation == "+") {
-    return num1 + num2;
-  } else if (operation == "-") {
-    return num1 - num2;
-  } else if (operation == "*") {
-    return num1 * num2;
-  } else if (operation == "/") {
-    return num1 / num2;
-  }
+  const opObj = {
+    "+": (a, b) => a + b,
+    "-": (a, b) => a - b,
+    "*": (a, b) => a * b,
+    "/": (a, b) => a / b,
+  };
+  return opObj[operation](num1, num2);
+};
+
+const getOperation = (limit) => {
+  return rs.question("What operation would you like to perform?", {
+    limit,
+    limitMessage: "This is not a valid operator",
+  });
 };
 
 const getNum = (arg) => {
@@ -36,13 +41,12 @@ const getNum = (arg) => {
   });
 };
 
-while (true) {
-  var operation = rs.question("What operation would you like to perform?");
-  if (operation !== "+" && "-" && "*" && "/") {
-    console.log("That is not a valid operation");
-  } else {
-    const [num1, num2] = ["first", "second"].map((item) => getNum(item));
-    console.log("The result is: " + calc(operation, num1, num2));
-    break;
-  }
-}
+const opList = ["+", "-", "*", "/"];
+
+const runCalc = (limit) => {
+  const operation = getOperation(limit);
+  const [num1, num2] = ["first", "second"].map((item) => getNum(item));
+  return calc(operation, num1, num2);
+};
+
+console.log("The result is: ", runCalc(opList));
